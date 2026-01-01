@@ -34,8 +34,12 @@ def validate_config(config: Dict[str, Any]) -> None:
         if field not in config:
             raise ValueError(f"Missing required field: {field}")
 
-    if config['backend'] not in ['toy']:
-        raise ValueError(f"Unknown backend: {config['backend']}")
+    valid_backends = ['toy', 'pennylane']
+    if config['backend'] not in valid_backends:
+        raise ValueError(
+            f"Unknown backend: {config['backend']}. "
+            f"Valid backends: {', '.join(valid_backends)}"
+        )
 
     if config['task'] not in ['classification', 'regression']:
         raise ValueError(f"Unknown task: {config['task']}")
@@ -75,6 +79,7 @@ def resolve_config(config: Dict[str, Any], seed: int) -> Dict[str, Any]:
         'learning_rate': 0.1,
         'train_frac': 0.8,
         'batch_size': None,
+        'n_layers': 2,
     }
     for key, default_val in training_defaults.items():
         if key not in resolved['training']:

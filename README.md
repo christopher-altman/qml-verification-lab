@@ -129,11 +129,11 @@ class Backend:
     def run(self) -> dict: ...  # Returns metrics, noise, timing
 ```
 
-Current backends:
-- `toy`: Synthetic classification with controlled noise (Prompt A baseline)
+**Available backends:**
+- **`toy`**: Synthetic logistic regression with controlled noise (always available)
+- **`pennylane`**: 2-qubit VQC with quantum noise channels (optional, requires `pip install -e ".[pennylane]"`)
 
-Future backends (Prompts B-D):
-- `pennylane`: Real QML circuits
+**Future backends:**
 - `qiskit`: IBM quantum simulators
 - `cirq`: Google quantum frameworks
 
@@ -141,24 +141,42 @@ Future backends (Prompts B-D):
 
 ### Installation
 
+**Basic installation (toy backend only):**
 ```bash
-git clone https://github.com/your-org/qml-verification-lab.git
+git clone https://github.com/christopher-altman/qml-verification-lab.git
 cd qml-verification-lab
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
+**With PennyLane backend:**
+```bash
+pip install -e ".[dev,pennylane]"
+```
+
 ### Quick Start
 
+**Toy backend (classical):**
 ```bash
 # Single run
 python -m qvl run --config examples/toy_smoke.yaml --output-dir artifacts/
 
 # Parameter sweep
 python -m qvl sweep --config examples/toy_sweep_small.yaml --output-dir artifacts/ --seeds 0,1,2
+```
 
-# Help
+**PennyLane backend (quantum):**
+```bash
+# Single run
+python -m qvl run --config examples/vqc_smoke.yaml --output-dir artifacts/
+
+# Parameter sweep
+python -m qvl sweep --config examples/vqc_sweep_small.yaml --output-dir artifacts/ --seeds 0,1
+```
+
+**Help:**
+```bash
 python -m qvl --help
 ```
 
@@ -219,10 +237,11 @@ The gap between accuracy and identifiability reveals the **verification gap**: t
 
 ## Development Roadmap
 
-- **Phase 1.0** (current): MVP with toy backend, stable artifacts, hero plots
-- **Phase 2.0**: Real Fisher information, Hessian computation, PennyLane backend
-- **Phase 3.0**: Extended noise models, robustness batteries, cross-seed analysis
-- **Phase 4.0**: Interactive reports, web dashboard, publication-ready figures
+- **Phase 1.0** ✓ MVP with toy backend, stable artifacts, hero plots
+- **Phase 2.0** ✓ Real Fisher information, Hessian computation (logistic regression)
+- **Phase 3.0** ✓ PennyLane backend with quantum noise channels (current)
+- **Phase 4.0**: Extended robustness batteries, cross-seed aggregation
+- **Phase 5.0**: Interactive reports, web dashboard, publication-ready figures
 
 ## Tags
 

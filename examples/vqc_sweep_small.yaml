@@ -1,0 +1,20 @@
+experiment_id: vqc_noise_identifiability
+backend: pennylane
+task: classification
+
+training:
+  n_samples: 40
+  n_layers: 2
+  n_epochs: 50
+  learning_rate: 0.1
+
+verification:
+  accuracy_threshold: 0.6
+  ident_threshold: 0.15
+
+noise:
+  amplitude_gamma: 0.01
+
+sweep:
+  depolarizing_p: [0.0, 0.05, 0.1, 0.15]
+  measurement_bitflip_p: [0.0, 0.05, 0.1, 0.15]

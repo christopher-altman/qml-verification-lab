@@ -21,6 +21,9 @@ dev = [
     "pytest>=7.0.0",
     "tqdm>=4.60.0",
 ]
+pennylane = [
+    "pennylane>=0.32.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

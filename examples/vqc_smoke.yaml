@@ -1,0 +1,18 @@
+experiment_id: vqc_smoke_test
+backend: pennylane
+task: classification
+
+training:
+  n_samples: 40
+  n_layers: 2
+  n_epochs: 50
+  learning_rate: 0.1
+
+verification:
+  accuracy_threshold: 0.6
+  ident_threshold: 0.1
+
+noise:
+  depolarizing_p: 0.05
+  measurement_bitflip_p: 0.0
+  amplitude_gamma: 0.01
