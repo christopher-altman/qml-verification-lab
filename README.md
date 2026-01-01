@@ -293,6 +293,24 @@ This policy keeps the repository lightweight while maintaining reproducibility.
 - **Phase 4.0**: Extended robustness batteries, cross-seed aggregation
 - **Phase 5.0**: Interactive reports, web dashboard, publication-ready figures
 
+## Lineage
+
+This laboratory extends and generalizes prior experimental work:
+
+**[noise-aware-qnn-identifiability](https://github.com/christopher-altman/noise-aware-qnn-identifiability)** (2024)
+- Demonstrated that quantum neural networks under noise can exhibit high accuracy while losing parameter identifiability
+- Used Fisher Information Matrix rank deficiency as the primary diagnostic
+- Implemented proof-of-concept with PennyLane on fixed circuit architectures
+- Established the verification gap: accuracy does not imply learning in noisy quantum systems
+
+QVL generalizes this finding by:
+- Abstracting the backend (toy, PennyLane, future: Qiskit, Cirq)
+- Formalizing identifiability and curvature as first-class metrics via the metric registry
+- Adding systematic noise sweeps, reproducible artifact contracts, and automated reporting
+- Expanding verification diagnostics beyond Fisher rank to include Hessian geometry, robustness batteries, and warning thresholds
+
+The core hypothesis remains unchanged: **accuracy is not evidence of learning**. QVL provides the infrastructure to test this hypothesis systematically across backends and noise regimes.
+
 ## Tags
 
 `qml` · `verification` · `identifiability` · `fisher-information` · `robustness` · `quantum-computing` · `machine-learning` · `reproducibility` · `harness` · `noise-analysis`
