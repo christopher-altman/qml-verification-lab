@@ -1,0 +1,12 @@
+experiment_id: deterministic_test
+backend: deterministic
+task: classification
+
+training:
+  n_samples: 100
+  n_features: 2
+  n_epochs: 50
+
+noise:
+  depolarizing_p: 0.1
+  measurement_bitflip_p: 0.05

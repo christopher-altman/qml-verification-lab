@@ -322,10 +322,13 @@ qml.AmplitudeDamping(self.amplitude_gamma, wires=qubit)
 
 ## Real Backend Examples
 
+**Deterministic backend** (`src/qvl/backends/deterministic/backend.py`): Minimal working example, numpy-only, perfectly reproducible
 **Toy backend** (`src/qvl/backends/toy/backend.py`): Logistic regression with analytic Fisher/Hessian
 **PennyLane backend** (`src/qvl/backends/pennylane/backend.py`): 2-qubit VQC with quantum noise channels
 
 Study these for full reference implementations.
+
+**Start with deterministic** if you're building a new backend - it's the simplest complete example.
 
 ## Summary
 

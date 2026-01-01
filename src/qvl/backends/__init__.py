@@ -1,9 +1,11 @@
 """Backend implementations."""
 
 from .toy.backend import ToyBackend
+from .deterministic.backend import DeterministicBackend
 
 BACKENDS = {
     'toy': ToyBackend,
+    'deterministic': DeterministicBackend,
 }
 
 try:

@@ -130,11 +130,14 @@ class Backend:
 ```
 
 **Available backends:**
+- **`deterministic`**: Minimal working example, numpy-only, perfectly reproducible (always available)
 - **`toy`**: Synthetic logistic regression with controlled noise (always available)
 - **`pennylane`**: 2-qubit VQC with quantum noise channels (optional, requires `pip install -e ".[pennylane]"`)
 - **`template`**: Non-functional stub demonstrating the backend interface
 
 **Add your own backend:** See [BACKENDS.md](BACKENDS.md) for the complete guide (< 60 seconds to get started).
+
+**Recommendation:** Start with `deterministic` backend to understand the interface before building custom backends.
 
 **Future backends:**
 - `qiskit`: IBM quantum simulators
@@ -351,4 +354,4 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-*Christopher Altman (2025)*
+*Christopher Altman (2026)*

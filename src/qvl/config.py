@@ -34,7 +34,10 @@ def validate_config(config: Dict[str, Any]) -> None:
         if field not in config:
             raise ValueError(f"Missing required field: {field}")
 
-    valid_backends = ['toy', 'pennylane']
+    # Import backends dynamically to get available backends
+    from .backends import BACKENDS
+    valid_backends = list(BACKENDS.keys())
+
     if config['backend'] not in valid_backends:
         raise ValueError(
             f"Unknown backend: {config['backend']}. "
