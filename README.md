@@ -258,6 +258,30 @@ These failures are invisible to accuracy metrics but fatal to scientific validit
 
 The gap between accuracy and identifiability reveals the **verification gap**: the space where a model appears to work but is not actually learning. QVL makes this gap quantifiable and reproducible.
 
+## Artifacts Policy
+
+QVL follows a clean separation between source code and generated experimental outputs:
+
+**Tracked (in git):**
+- `artifacts_demo/` - Small curated snapshot (~200 KB) for quick review
+  - Contains 1-2 example runs with hero plots and summary metrics
+  - See `artifacts_demo/README.md` for details
+
+**Not tracked (generated locally):**
+- `artifacts/` - Full experiment outputs (gitignored)
+- Generated via `qvl run` or `qvl sweep` commands
+
+**Regenerating demo artifacts:**
+```bash
+bash scripts/generate_demo_artifacts.sh
+```
+
+**CI artifacts:**
+- GitHub Actions uploads full test artifacts (not committed to repo)
+- Available as downloadable CI artifacts on each workflow run
+
+This policy keeps the repository lightweight while maintaining reproducibility.
+
 ## Development Roadmap
 
 - **Phase 1.0** ✓ MVP with toy backend, stable artifacts, hero plots

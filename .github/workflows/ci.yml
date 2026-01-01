@@ -35,6 +35,14 @@ jobs:
         python -m qvl --help
         python -m qvl run --config examples/toy_smoke.yaml --output-dir artifacts_ci --seed 0
 
+    - name: Upload test artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-artifacts-py${{ matrix.python-version }}
+        path: artifacts_ci/
+        retention-days: 7
+
   test-pennylane:
     runs-on: ubuntu-latest
     strategy:
@@ -61,3 +69,11 @@ jobs:
     - name: Test VQC CLI smoke
       run: |
         python -m qvl run --config examples/vqc_smoke.yaml --output-dir artifacts_vqc_ci --seed 0
+
+    - name: Upload VQC test artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: vqc-artifacts-py${{ matrix.python-version }}
+        path: artifacts_vqc_ci/
+        retention-days: 7
