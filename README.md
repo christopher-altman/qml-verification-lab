@@ -132,6 +132,9 @@ class Backend:
 **Available backends:**
 - **`toy`**: Synthetic logistic regression with controlled noise (always available)
 - **`pennylane`**: 2-qubit VQC with quantum noise channels (optional, requires `pip install -e ".[pennylane]"`)
+- **`template`**: Non-functional stub demonstrating the backend interface
+
+**Add your own backend:** See [BACKENDS.md](BACKENDS.md) for the complete guide (< 60 seconds to get started).
 
 **Future backends:**
 - `qiskit`: IBM quantum simulators

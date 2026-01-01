@@ -37,3 +37,6 @@ artifacts_ci/
 artifacts_vqc_ci/
 artifacts_demo/
 artifacts_test/
+
+# Generated figures (regenerate with scripts/generate_hero.py)
+figures/
