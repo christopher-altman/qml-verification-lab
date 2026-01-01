@@ -1,0 +1,30 @@
+{
+  "experiment_id": "toy_identifiability_collapse",
+  "backend": "toy",
+  "task": "classification",
+  "timestamp_utc": "2026-01-01T05:43:21.283941+00:00",
+  "config_hash": "65c32f90",
+  "seed": 0,
+  "metrics": {
+    "accuracy": 0.905,
+    "loss": 0.5737724921025169,
+    "ident_proxy": 0.47607331832873795,
+    "hessian_min_abs": 0.1856992935343436,
+    "hessian_max_abs": 0.3900644844761228,
+    "fisher_condition_number": 2.1005167916480616,
+    "fisher_effective_rank": 2.837385884738683,
+    "seed_robustness": 0.0
+  },
+  "noise": {
+    "depolarizing_p": 0.2,
+    "measurement_bitflip_p": 0.2,
+    "amplitude_gamma": 0.01
+  },
+  "timing": {
+    "wall_time_sec": 0.004225969314575195
+  },
+  "notes": {
+    "verification_warning": false,
+    "warning_reason": ""
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "experiment_id": "toy_identifiability_collapse",
+  "backend": "toy",
+  "task": "classification",
+  "training": {
+    "n_samples": 200,
+    "n_features": 2,
+    "n_epochs": 200,
+    "learning_rate": 0.1,
+    "train_frac": 0.8,
+    "batch_size": null
+  },
+  "verification": {
+    "accuracy_threshold": 0.65,
+    "ident_threshold": 0.05
+  },
+  "noise": {
+    "amplitude_gamma": 0.01,
+    "depolarizing_p": 0.1,
+    "measurement_bitflip_p": 0.2
+  },
+  "sweep": {
+    "depolarizing_p": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "measurement_bitflip_p": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ]
+  },
+  "seed": 0
+}

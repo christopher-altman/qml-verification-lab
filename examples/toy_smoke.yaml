@@ -1,0 +1,14 @@
+experiment_id: toy_smoke_test
+backend: toy
+task: classification
+
+training:
+  n_samples: 100
+  n_features: 2
+  n_epochs: 100
+  learning_rate: 0.1
+
+noise:
+  depolarizing_p: 0.05
+  measurement_bitflip_p: 0.0
+  amplitude_gamma: 0.01

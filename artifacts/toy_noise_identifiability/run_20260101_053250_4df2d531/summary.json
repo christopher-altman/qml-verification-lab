@@ -1,0 +1,30 @@
+{
+  "experiment_id": "toy_noise_identifiability",
+  "backend": "toy",
+  "task": "classification",
+  "timestamp_utc": "2026-01-01T05:32:50.954958+00:00",
+  "config_hash": "4df2d531",
+  "seed": 2,
+  "metrics": {
+    "accuracy": 0.935,
+    "loss": 0.4695101819510402,
+    "ident_proxy": 0.2807379157901957,
+    "hessian_min_abs": 1.1541400219572382,
+    "hessian_max_abs": 3.0513008397138877,
+    "fisher_condition_number": 2.6437873929190725,
+    "fisher_effective_rank": 1.3782452411560502,
+    "seed_robustness": 0.0
+  },
+  "noise": {
+    "depolarizing_p": 0.0,
+    "measurement_bitflip_p": 0.15,
+    "amplitude_gamma": 0.01
+  },
+  "timing": {
+    "wall_time_sec": 0.0029251575469970703
+  },
+  "notes": {
+    "verification_warning": false,
+    "warning_reason": ""
+  }
+}

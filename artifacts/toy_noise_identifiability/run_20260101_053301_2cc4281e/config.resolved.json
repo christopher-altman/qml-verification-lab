@@ -1,0 +1,33 @@
+{
+  "experiment_id": "toy_noise_identifiability",
+  "backend": "toy",
+  "task": "classification",
+  "training": {
+    "n_samples": 200,
+    "n_features": 2,
+    "n_epochs": 150,
+    "learning_rate": 0.1
+  },
+  "noise": {
+    "amplitude_gamma": 0.01,
+    "depolarizing_p": 0.05,
+    "measurement_bitflip_p": 0.1
+  },
+  "sweep": {
+    "depolarizing_p": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2
+    ],
+    "measurement_bitflip_p": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2
+    ]
+  },
+  "seed": 2
+}
