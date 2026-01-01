@@ -38,8 +38,9 @@ env/
 .coverage
 htmlcov/
 
-# Artifacts
-artifacts/
+
+# Metadata
+src/*.egg-info/
 
 # Documentation (working notes)
 docs/
@@ -48,13 +49,8 @@ docs/
 .DS_Store
 Thumbs.db
 
-# Project-specific
-WARP.md
-
 # --- local/agent artifacts ---
 docs/
 .venv/
 venv/
 .env
-.claude/
-.claude/**
