@@ -50,3 +50,11 @@ Thumbs.db
 
 # Project-specific
 WARP.md
+
+# --- local/agent artifacts ---
+docs/
+.venv/
+venv/
+.env
+.claude/
+.claude/**
