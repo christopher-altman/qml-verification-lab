@@ -34,6 +34,9 @@ def main():
     report_parser.add_argument('--input', required=True, help='Input directory with sweep artifacts')
     report_parser.add_argument('--output', required=True, help='Output directory for report')
 
+    battery_parser = subparsers.add_parser('battery', help='Run canonical verification battery')
+    battery_parser.add_argument('--quiet', action='store_true', help='Suppress output')
+
     args = parser.parse_args()
 
     if args.command is None:
@@ -46,6 +49,8 @@ def main():
         return sweep_command(args)
     elif args.command == 'report':
         return report_command(args)
+    elif args.command == 'battery':
+        return battery_command(args)
     else:
         parser.print_help()
         return 1
@@ -91,6 +96,31 @@ def report_command(args):
     try:
         generate_report(args.input, args.output)
         return 0
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
+def battery_command(args):
+    """Handle 'battery' command."""
+    try:
+        import subprocess
+        script_path = Path(__file__).parent.parent.parent / 'scripts' / 'run_canonical_battery.py'
+
+        if not script_path.exists():
+            print(f"Error: Battery script not found at {script_path}", file=sys.stderr)
+            return 1
+
+        result = subprocess.run(
+            [sys.executable, str(script_path)],
+            check=True,
+            stdout=None if not args.quiet else subprocess.DEVNULL,
+            stderr=None if not args.quiet else subprocess.DEVNULL,
+        )
+        return result.returncode
+    except subprocess.CalledProcessError as e:
+        print(f"Error running battery: {e}", file=sys.stderr)
+        return 1
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1

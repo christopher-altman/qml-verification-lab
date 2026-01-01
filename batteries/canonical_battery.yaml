@@ -1,0 +1,22 @@
+experiment_id: canonical_verification_battery
+backend: toy
+task: classification
+
+training:
+  n_samples: 300
+  n_features: 2
+  n_epochs: 200
+  learning_rate: 0.1
+  train_frac: 0.8
+  n_layers: 3
+
+verification:
+  accuracy_threshold: 0.7
+  ident_threshold: 0.1
+
+noise:
+  amplitude_gamma: 0.02
+
+sweep:
+  depolarizing_p: [0.0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2, 0.22, 0.24, 0.26, 0.28, 0.3]
+  measurement_bitflip_p: [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3]
