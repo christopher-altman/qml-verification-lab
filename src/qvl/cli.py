@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .config import load_config
 from .runner import run_single_experiment, run_sweep
+from .reporting import generate_report
 
 
 def main():
@@ -29,8 +30,9 @@ def main():
     sweep_parser.add_argument('--seeds', default='0', help='Comma-separated list of seeds')
     sweep_parser.add_argument('--quiet', action='store_true', help='Suppress output')
 
-    report_parser = subparsers.add_parser('report', help='Generate report (stub)')
-    report_parser.add_argument('--input-dir', help='Input directory with artifacts')
+    report_parser = subparsers.add_parser('report', help='Generate report from sweep artifacts')
+    report_parser.add_argument('--input', required=True, help='Input directory with sweep artifacts')
+    report_parser.add_argument('--output', required=True, help='Output directory for report')
 
     args = parser.parse_args()
 
@@ -85,10 +87,13 @@ def sweep_command(args):
 
 
 def report_command(args):
-    """Handle 'report' command (stub for Prompt D)."""
-    print("Report generation is not yet implemented.")
-    print("This feature will be added in a future update.")
-    return 0
+    """Handle 'report' command."""
+    try:
+        generate_report(args.input, args.output)
+        return 0
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
 
 
 if __name__ == '__main__':

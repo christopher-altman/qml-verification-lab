@@ -180,6 +180,29 @@ python -m qvl sweep --config examples/vqc_sweep_small.yaml --output-dir artifact
 python -m qvl --help
 ```
 
+### Reporting
+
+After running sweeps, generate comprehensive reports with leaderboards and visualizations:
+
+```bash
+python -m qvl report --input artifacts/my_experiment_id/ --output reports/my_report/
+```
+
+**Report Outputs:**
+- `leaderboard.csv` - Tabular results with stable columns (experiment_id, backend, accuracy, ident_proxy, fisher metrics, noise parameters, seed, timing, run_dir)
+- `figures/accuracy_vs_identifiability.png` - Scatter plot showing accuracy vs identifiability colored by Fisher condition number
+- `figures/fisher_vs_accuracy.png` - Fisher condition number vs accuracy plot
+- `figures/identifiability_heatmap.png` - Heatmap of identifiability proxy across noise grid (if grid-like sweep detected)
+- `hero_dark.png` / `hero_light.png` - Hero images from automatically selected "storytelling point" (high accuracy but low identifiability tension)
+
+**Hero Selection Heuristic:**
+The report automatically selects a hero point for storytelling by scoring each result:
+- Rewards high accuracy
+- Penalizes low identifiability and high Fisher condition number
+- Bonus for "tension points": high accuracy (>0.7) but low identifiability (<0.3)
+
+This identifies the most compelling demonstration of the verification gap.
+
 ### Example Configuration
 
 ```yaml

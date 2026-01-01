@@ -2,9 +2,9 @@ Metadata-Version: 2.4
 Name: qvl
 Version: 0.1.0
 Summary: Quantum Machine Learning Verification Laboratory
-Author: QVL Contributors
+Author: Christopher Altman
 License: MIT
-Requires-Python: >=3.8
+Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: numpy>=1.20.0
@@ -13,11 +13,24 @@ Requires-Dist: pyyaml>=5.4.0
 Provides-Extra: dev
 Requires-Dist: pytest>=7.0.0; extra == "dev"
 Requires-Dist: tqdm>=4.60.0; extra == "dev"
+Provides-Extra: pennylane
+Requires-Dist: pennylane>=0.32.0; extra == "pennylane"
 Dynamic: license-file
 
 # Quantum Machine Learning Verification Laboratory (QVL)
 
-A reproducible verification harness for Quantum Machine Learning systems that challenges a fundamental assumption: **accuracy is not evidence of learning**.
+*A reproducible verification harness for Quantum Machine Learning systems that challenges a fundamental assumption:* ***accuracy is not evidence of learning***.
+
+<br>
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Google Scholar](https://img.shields.io/badge/Google_Scholar-Profile-blue?logo=google-scholar)](https://scholar.google.com/citations?user=tvwpCcgAAAAJ)
+[![Hugging Face](https://img.shields.io/badge/huggingface-Cohaerence-white)](https://huggingface.co/Cohaerence)
+
+[![X](https://img.shields.io/badge/X-@coherence-blue)](https://x.com/coherence)
+[![Website](https://img.shields.io/badge/website-christopheraltman.com-green)](https://www.christopheraltman.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Altman-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/Altman)
 
 ## The Problem
 
@@ -135,11 +148,11 @@ class Backend:
     def run(self) -> dict: ...  # Returns metrics, noise, timing
 ```
 
-Current backends:
-- `toy`: Synthetic classification with controlled noise (Prompt A baseline)
+**Available backends:**
+- **`toy`**: Synthetic logistic regression with controlled noise (always available)
+- **`pennylane`**: 2-qubit VQC with quantum noise channels (optional, requires `pip install -e ".[pennylane]"`)
 
-Future backends (Prompts B-D):
-- `pennylane`: Real QML circuits
+**Future backends:**
 - `qiskit`: IBM quantum simulators
 - `cirq`: Google quantum frameworks
 
@@ -147,24 +160,42 @@ Future backends (Prompts B-D):
 
 ### Installation
 
+**Basic installation (toy backend only):**
 ```bash
-git clone https://github.com/your-org/qml-verification-lab.git
+git clone https://github.com/christopher-altman/qml-verification-lab.git
 cd qml-verification-lab
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
+**With PennyLane backend:**
+```bash
+pip install -e ".[dev,pennylane]"
+```
+
 ### Quick Start
 
+**Toy backend (classical):**
 ```bash
 # Single run
 python -m qvl run --config examples/toy_smoke.yaml --output-dir artifacts/
 
 # Parameter sweep
 python -m qvl sweep --config examples/toy_sweep_small.yaml --output-dir artifacts/ --seeds 0,1,2
+```
 
-# Help
+**PennyLane backend (quantum):**
+```bash
+# Single run
+python -m qvl run --config examples/vqc_smoke.yaml --output-dir artifacts/
+
+# Parameter sweep
+python -m qvl sweep --config examples/vqc_sweep_small.yaml --output-dir artifacts/ --seeds 0,1
+```
+
+**Help:**
+```bash
 python -m qvl --help
 ```
 
@@ -225,21 +256,34 @@ The gap between accuracy and identifiability reveals the **verification gap**: t
 
 ## Development Roadmap
 
-- **Prompt A** (current): MVP with toy backend, stable artifacts, hero plots
-- **Prompt B**: Real Fisher information, Hessian computation, PennyLane backend
-- **Prompt C**: Extended noise models, robustness batteries, cross-seed analysis
-- **Prompt D**: Interactive reports, web dashboard, publication-ready figures
+- **Phase 1.0** ✓ MVP with toy backend, stable artifacts, hero plots
+- **Phase 2.0** ✓ Real Fisher information, Hessian computation (logistic regression)
+- **Phase 3.0** ✓ PennyLane backend with quantum noise channels (current)
+- **Phase 4.0**: Extended robustness batteries, cross-seed aggregation
+- **Phase 5.0**: Interactive reports, web dashboard, publication-ready figures
 
-## Citation
+## Tags
+
+`qml` · `verification` · `identifiability` · `fisher-information` · `robustness` · `quantum-computing` · `machine-learning` · `reproducibility` · `harness` · `noise-analysis`
+
+## References
+
+1. Abbas, A., et al. (2021). The power of quantum neural networks. *Nature Computational Science*, 1(6), 403-409.
+2. Cerezo, M., et al. (2021). Variational quantum algorithms. *Nature Reviews Physics*, 3(9), 625-644.
+3. Holmes, Z., et al. (2022). Connecting ansatz expressibility to gradient magnitudes and barren plateaus. *PRX Quantum*, 3(1), 010313.
+4. LaRose, R., & Coyle, B. (2020). Robust data encodings for quantum classifiers. *Physical Review A*, 102(3), 032420.
+5. Sharma, K., et al. (2022). Reformulation of the no-free-lunch theorem for entangled datasets. *Physical Review Letters*, 128(7), 070501.
+
+## Citations
 
 If you use QVL in your research, please cite:
 
 ```bibtex
 @software{qvl2026,
   title={Quantum Machine Learning Verification Laboratory},
-  author={QVL Contributors},
+  author={Altman, Christopher},
   year={2026},
-  url={https://github.com/your-org/qml-verification-lab}
+  url={https://github.com/christopher-altman/qml-verification-lab}
 }
 ```
 
@@ -247,6 +291,15 @@ If you use QVL in your research, please cite:
 
 MIT License. See [LICENSE](LICENSE) for details.
 
-## Tags
+## Contact
 
-`qml` · `verification` · `identifiability` · `fisher-information` · `robustness` · `quantum-computing` · `machine-learning` · `reproducibility` · `harness` · `noise-analysis`
+- **Website:** [christopheraltman.com](https://christopheraltman.com)
+- **Research portfolio:** https://lab.christopheraltman.com/
+- **Portfolio mirror:** https://christopher-altman.github.io/
+- **GitHub:** [github.com/christopher-altman](https://github.com/christopher-altman)
+- **Google Scholar:** [scholar.google.com/citations?user=tvwpCcgAAAAJ](https://scholar.google.com/citations?user=tvwpCcgAAAAJ)
+- **Email:** x@christopheraltman.com
+
+---
+
+*Christopher Altman (2025)*
