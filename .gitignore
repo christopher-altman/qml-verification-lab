@@ -5,22 +5,12 @@ __pycache__/
 *.so
 .Python
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
 *.egg-info/
-.installed.cfg
 *.egg
 
-# Virtual environments
+# Virtual environments (keep if you’re okay with these being in repo .gitignore;
+# otherwise move them to your global ignore)
 .venv/
 venv/
 ENV/
@@ -32,25 +22,18 @@ env/
 *.swp
 *.swo
 *~
+.DS_Store
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
+coverage.xml
+*.log
 
-
-# Metadata
-src/*.egg-info/
-
-# Documentation (working notes)
-docs/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# --- local/agent artifacts ---
-docs/
-.venv/
-venv/
-.env
+# Experiment artifacts (generated locally)
+artifacts/
+artifacts_ci/
+artifacts_vqc_ci/
+artifacts_demo/
+artifacts_test/
