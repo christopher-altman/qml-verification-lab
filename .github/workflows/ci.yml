@@ -77,3 +77,40 @@ jobs:
         name: vqc-artifacts-py${{ matrix.python-version }}
         path: artifacts_vqc_ci/
         retention-days: 7
+
+  deterministic-report:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+
+    - name: Run deterministic experiment
+      run: |
+        python -m qvl run --config examples/deterministic_smoke.yaml --output-dir artifacts_report --seed 42
+
+    - name: Generate report
+      run: |
+        python -m qvl report --input artifacts_report --output reports_ci
+
+    - name: Upload report artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: deterministic-report
+        path: |
+          reports_ci/
+          reports_ci/summary.md
+          reports_ci/leaderboard.csv
+          reports_ci/hero_dark.png
+          reports_ci/hero_light.png
+          reports_ci/figures/
+        retention-days: 30

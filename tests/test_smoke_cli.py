@@ -57,10 +57,26 @@ def test_cli_run_smoke():
 
 def test_cli_report_stub():
     """Test that report command exists (stub)."""
-    result = subprocess.run(
-        [sys.executable, '-m', 'qvl', 'report'],
-        capture_output=True,
-        text=True
-    )
-    assert result.returncode == 0
-    assert 'not yet implemented' in result.stdout
+    with tempfile.TemporaryDirectory() as tmpdir:
+        input_dir = Path(tmpdir) / 'input' / 'run_001'
+        output_dir = Path(tmpdir) / 'output'
+        input_dir.mkdir(parents=True)
+        output_dir.mkdir()
+        
+        # Create minimal stub data
+        results_file = input_dir / 'results.jsonl'
+        results_file.write_text('{"metrics": {"accuracy": 0.5, "ident_proxy": 0.3, "fisher_condition_number": 10.0}, "noise": {"depolarizing_p": 0.0, "measurement_bitflip_p": 0.0}, "timing": {"wall_time_sec": 1.0}}\n')
+        
+        config_file = input_dir / 'config.resolved.json'
+        config_file.write_text('{"experiment_id": "test", "backend": "statevector", "task": "test", "seed": 0}')
+        
+        result = subprocess.run(
+            [sys.executable, '-m', 'qvl', 'report', 
+             '--input', str(input_dir.parent), 
+             '--output', str(output_dir)],
+            capture_output=True,
+            text=True
+        )
+        assert result.returncode == 0
+        assert (output_dir / 'leaderboard.csv').exists()
+        assert (output_dir / 'summary.md').exists()

@@ -37,6 +37,11 @@ artifacts_ci/
 artifacts_vqc_ci/
 artifacts_demo/
 artifacts_test/
+artifacts_report/
+
+# Generated reports (regenerate with python -m qvl report)
+reports/
+reports_ci/
 
 # Generated figures (regenerate with scripts/generate_hero.py or python -m qvl battery)
 figures/

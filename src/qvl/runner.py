@@ -39,7 +39,7 @@ def run_single_experiment(
     experiment_id = resolved_config['experiment_id']
     config_hash = compute_config_hash(resolved_config)
 
-    writer = ArtifactWriter(output_dir, experiment_id, config_hash)
+    writer = ArtifactWriter(output_dir, experiment_id, config_hash, seed)
 
     writer.write_config(resolved_config)
     writer.write_env(get_env_info())
@@ -183,7 +183,9 @@ def run_sweep(
 
     if len(all_results) > 0:
         config_hash = compute_config_hash(config)
-        writer = ArtifactWriter(output_dir, experiment_id, config_hash)
+        # For sweeps, use first seed for directory naming
+        sweep_seed = seeds[0] if seeds else 0
+        writer = ArtifactWriter(output_dir, experiment_id, config_hash, sweep_seed)
 
         for result in all_results:
             writer.append_result(result)

@@ -10,20 +10,23 @@ from typing import Any, Dict
 class ArtifactWriter:
     """Manages artifact directory structure and writes."""
 
-    def __init__(self, output_dir: str, experiment_id: str, config_hash: str):
+    def __init__(self, output_dir: str, experiment_id: str, config_hash: str, seed: int = 0):
         """Initialize artifact writer.
 
         Args:
             output_dir: Base output directory
             experiment_id: Experiment identifier
             config_hash: Short hash of configuration
+            seed: Random seed for deterministic run naming
         """
         self.output_dir = Path(output_dir)
         self.experiment_id = experiment_id
         self.config_hash = config_hash
+        self.seed = seed
 
-        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-        run_dir = f"run_{timestamp}_{config_hash}"
+        # Deterministic run naming: seed-based, not timestamp-based
+        # This ensures reproducible directory structure
+        run_dir = f"run_seed{seed:04d}_{config_hash}"
 
         self.run_dir = self.output_dir / experiment_id / run_dir
         self.run_dir.mkdir(parents=True, exist_ok=True)
