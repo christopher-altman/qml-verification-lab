@@ -9,12 +9,15 @@ dist/
 *.egg-info/
 *.egg
 
-# Virtual environments (keep if you’re okay with these being in repo .gitignore;
-# otherwise move them to your global ignore)
-.venv/
+# Virtual environments
 venv/
 ENV/
 env/
+
+# Logs
+/logs/
+/*.log
+/*.log.*
 
 # IDEs
 .vscode/
@@ -31,7 +34,7 @@ htmlcov/
 coverage.xml
 *.log
 
-# Experiment artifacts (generated locally)
+# Experiment artifacts
 artifacts/
 artifacts_ci/
 artifacts_vqc_ci/
