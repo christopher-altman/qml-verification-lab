@@ -6,6 +6,7 @@ from typing import Dict, Any
 
 try:
     import pennylane as qml
+    from pennylane import numpy as pnp
     HAS_PENNYLANE = True
 except ImportError:
     HAS_PENNYLANE = False
@@ -42,6 +43,15 @@ class PennyLaneBackend:
         np.random.seed(self.seed)
 
         self.dev = qml.device('default.mixed', wires=self.n_qubits)
+
+        # Create QNode with closure to ensure proper binding
+        def circuit_fn(x, params):
+            """Full quantum circuit."""
+            self._feature_map(x)
+            self._ansatz(params)
+            return qml.expval(qml.PauliZ(0))
+
+        self._qnode = qml.QNode(circuit_fn, self.dev, interface='autograd')
 
     def run(self) -> Dict[str, Any]:
         """Run VQC experiment.
@@ -91,10 +101,11 @@ class PennyLaneBackend:
 
         return X, y
 
-    def _initialize_params(self) -> np.ndarray:
+    def _initialize_params(self):
         """Initialize variational parameters."""
         n_params = self.n_qubits * self.n_layers * 3
-        return np.random.randn(n_params) * 0.1
+        params = np.random.randn(n_params) * 0.1
+        return pnp.array(params, requires_grad=True)
 
     def _feature_map(self, x):
         """Simple angle encoding feature map."""
@@ -128,16 +139,10 @@ class PennyLaneBackend:
             for qubit in range(self.n_qubits):
                 qml.AmplitudeDamping(self.amplitude_gamma, wires=qubit)
 
-    @qml.qnode(qml.device('default.mixed', wires=2), interface='autograd')
-    def _circuit(self, x, params):
-        """Full quantum circuit."""
-        self._feature_map(x)
-        self._ansatz(params)
-        return qml.expval(qml.PauliZ(0))
 
     def _predict_single(self, x, params):
         """Predict for single sample."""
-        expval = self._circuit(x, params)
+        expval = self._qnode(x, params)
 
         prob = (expval + 1) / 2
 
@@ -149,13 +154,13 @@ class PennyLaneBackend:
 
     def _predict(self, X, params):
         """Make predictions for all samples."""
-        return np.array([self._predict_single(x, params) for x in X])
+        return pnp.array([self._predict_single(x, params) for x in X])
 
     def _loss(self, params, X, y):
         """Binary cross-entropy loss."""
         predictions = self._predict(X, params)
-        predictions = np.clip(predictions, 1e-10, 1 - 1e-10)
-        loss = -np.mean(y * np.log(predictions) + (1 - y) * np.log(1 - predictions))
+        predictions = pnp.clip(predictions, 1e-10, 1 - 1e-10)
+        loss = -pnp.mean(y * pnp.log(predictions) + (1 - y) * pnp.log(1 - predictions))
         return loss
 
     def _train(self, X, y, params):
