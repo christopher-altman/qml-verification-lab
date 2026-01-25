@@ -59,6 +59,8 @@ def main():
 def run_command(args):
     """Handle 'run' command."""
     try:
+        Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+
         config = load_config(args.config)
         run_single_experiment(
             config,
@@ -75,6 +77,9 @@ def run_command(args):
 def sweep_command(args):
     """Handle 'sweep' command."""
     try:
+        # Create output directory early to ensure artifact upload directory exists
+        Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+
         config = load_config(args.config)
 
         seeds = [int(s.strip()) for s in args.seeds.split(',')]

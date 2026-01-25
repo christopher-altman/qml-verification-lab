@@ -1,4 +1,4 @@
-# Python
+	# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -13,6 +13,18 @@ dist/
 venv/
 ENV/
 env/
+.venv/
+.venv-ci-new/
+
+# CI / smoke-run artifacts
+artifacts_vqc_ci/
+artifacts_vqc_ci_test/
+artifacts_vqc_ci/
+
+# General artifacts (if you use similar patterns elsewhere)
+artifacts*/
+*.log
+*.tmp
 
 # Logs
 /logs/
@@ -36,8 +48,6 @@ coverage.xml
 
 # Experiment artifacts
 artifacts/
-artifacts_ci/
-artifacts_vqc_ci/
 artifacts_demo/
 artifacts_test/
 artifacts_report/
