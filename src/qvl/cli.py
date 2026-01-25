@@ -59,6 +59,7 @@ def main():
 def run_command(args):
     """Handle 'run' command."""
     try:
+        # Create output directory early to ensure artifact upload directory exists
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
 
         config = load_config(args.config)
