@@ -1,4 +1,5 @@
 	# Python
+*.pyc
 __pycache__/
 *.py[cod]
 *$py.class
@@ -15,11 +16,15 @@ ENV/
 env/
 .venv/
 .venv-ci-new/
+.venv*/
+
 
 # CI / smoke-run artifacts
 artifacts_vqc_ci/
 artifacts_vqc_ci_test/
 artifacts_vqc_ci/
+artifacts*/
+
 
 # General artifacts (if you use similar patterns elsewhere)
 artifacts*/

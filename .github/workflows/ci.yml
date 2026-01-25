@@ -66,6 +66,11 @@ jobs:
       run: |
         pytest -q
 
+    - name: Prepare artifact directory
+      run: |
+        mkdir -p artifacts_vqc_ci
+        echo "CI placeholder - prevents artifact upload warnings" > artifacts_vqc_ci/.keep
+
     - name: Test VQC CLI smoke
       run: |
         python -m qvl run --config examples/vqc_smoke.yaml --output-dir artifacts_vqc_ci --seed 0
